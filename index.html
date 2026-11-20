@@ -9,14 +9,14 @@
     <meta name="description" content="Finance-Tracker 是一款介面簡潔的現代化財務管理與分析網頁應用程式。掌握即時總資產、收支現金流趨勢及淨儲蓄率目標，內建交易紀錄與 Excel 匯出。A sleek, modern financial intelligence web app to visualize real-time liquidity, cash run-rate, and budget allocations.">
     <meta name="keywords" content="財務追蹤, 財務管理, 資產分析, 現金流, 儲蓄率, 記帳軟體, Finance Tracker, Financial Dashboard, Financial Intelligence, Budget Allocation, Net Savings Rate">
     <meta name="author" content="Finance-Tracker">
-    <link rel="canonical" href="https://728rabbit.github.io/Finance-Tracker/">
+    <link rel="canonical" href="https://your-domain.com/">
 
     <!-- Open Graph / Facebook / LinkedIn (中英雙語) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://728rabbit.github.io/Finance-Tracker/">
+    <meta property="og:url" content="https://your-domain.com/">
     <meta property="og:title" content="Finance-Tracker 財務追蹤工具 | Modern Financial Intelligence App">
     <meta property="og:description" content="現代化財務管理與分析網頁應用程式。A sleek, modern financial intelligence web application designed to visualize real-time liquidity and budget allocations.">
-    <meta property="og:image" content="https://728rabbit.github.io/Finance-Tracker/financial_dashboard/screen.png">
+    <meta property="og:image" content="https://your-domain.com/preview.png">
     <meta property="og:locale" content="zh_TW">
     <meta property="og:locale:alternate" content="en_US">
 
@@ -24,14 +24,14 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Finance-Tracker 財務追蹤工具 | Modern Financial Intelligence App">
     <meta name="twitter:description" content="現代化財務管理與分析網頁應用程式。A sleek, modern financial intelligence web application designed to visualize real-time liquidity and budget allocations.">
-    <meta name="twitter:image" content="https://728rabbit.github.io/Finance-Tracker/financial_dashboard/screen.png">
+    <meta name="twitter:image" content="https://your-domain.com/preview.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- JSON-LD 結構化資料 -->
+    <!-- JSON-LD 結構化資料 (加入 Offers 定價資訊) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -41,18 +41,29 @@
       "applicationCategory": "FinanceApplication",
       "inLanguage": ["zh-Hant", "en"],
       "description": "一款介面簡潔的現代化財務管理與分析網頁應用程式。A sleek, modern financial intelligence web application designed to visualize real-time liquidity, cash run-rate, and budget allocations.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "TWD"
-      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Personal Edition",
+          "price": "288",
+          "priceCurrency": "HKD"
+        },
+        {
+          "@type": "Offer",
+          "name": "Team / Pro Edition",
+          "price": "688",
+          "priceCurrency": "HKD"
+        }
+      ],
       "featureList": [
         "Interactive 6-month income vs. expense velocity charts (6個月收支趨勢對比圖表)",
         "Category spending breakdowns (分類支出佔比)",
         "Net savings rate tracking (淨儲蓄率追蹤)",
         "Comprehensive transaction ledger (完整交易紀錄帳本)",
         "Excel export (Excel 匯出)",
-        "Multi-language support EN/繁 (中英雙語切換)"
+        "Multi-language support EN/繁 (中英雙語切換)",
+        "User Roles (使用者角色權限)",
+        "Audit Logs (審計日誌)"
       ]
     }
     </script>
@@ -68,6 +79,7 @@
             --text-muted: #475569;
             --border-color: #e2e8f0;
             --glow-color: rgba(79, 70, 229, 0.15);
+            --success-color: #10b981;
         }
 
         * {
@@ -269,7 +281,6 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        /* 卡片頂部裝飾線 */
         .module-card::before {
             content: '';
             position: absolute;
@@ -342,6 +353,174 @@
             color: var(--text-muted);
         }
 
+        /* Pricing Section */
+        .pricing-section {
+            margin-top: 6rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 推薦方案樣式 */
+        .pricing-card.recommended {
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2);
+            background: linear-gradient(to bottom, #ffffff, #f8fafc);
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+        }
+
+        .plan-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            min-height: 40px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .price-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .plan-features li.disabled {
+            color: #94a3b8;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .plan-features li.disabled::before {
+            content: '✕';
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+        }
+
+        .btn-buy {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(79, 70, 229, 0.4);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -369,6 +548,9 @@
             .container { padding: 3rem 1rem; }
             .grid { grid-template-columns: 1fr; }
             .description-group { padding: 1.5rem; }
+            .pricing-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .pricing-card.recommended { transform: scale(1); }
+            .pricing-card.recommended:hover { transform: translateY(-5px); }
         }
     </style>
 </head>
@@ -399,84 +581,159 @@
             </div>
         </header>
 
-        <main class="modules-section">
-            <div class="section-header">
-                <h2 class="section-title">
-                    📂 Project Modules <span>項目模組</span>
-                </h2>
-            </div>
-            
-            <div class="grid">
-                <!-- Dashboard -->
-                <a href="./financial_dashboard/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
-                    <div class="card-header">
-                        <div class="icon-wrapper">📊</div>
-                        <span class="arrow">→</span>
-                    </div>
-                    <h3>Financial Dashboard</h3>
-                    <p>財務儀表板</p>
-                </a>
+        <main>
+            <!-- 項目模組區塊 -->
+            <section class="modules-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        📂 Project Modules <span>項目模組</span>
+                    </h2>
+                </div>
+                
+                <div class="grid">
+                    <!-- Dashboard -->
+                    <a href="./financial_dashboard/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                        <div class="card-header">
+                            <div class="icon-wrapper">📊</div>
+                            <span class="arrow">→</span>
+                        </div>
+                        <h3>Financial Dashboard</h3>
+                        <p>財務儀表板</p>
+                    </a>
 
-                <!-- Analytics -->
-                <a href="./analytics_reports_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
-                    <div class="card-header">
-                        <div class="icon-wrapper">📈</div>
-                        <span class="arrow">→</span>
-                    </div>
-                    <h3>Analytics Reports</h3>
-                    <p>數據分析報表</p>
-                </a>
+                    <!-- Analytics -->
+                    <a href="./analytics_reports_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                        <div class="card-header">
+                            <div class="icon-wrapper">📈</div>
+                            <span class="arrow">→</span>
+                        </div>
+                        <h3>Analytics Reports</h3>
+                        <p>數據分析報表</p>
+                    </a>
 
-                <!-- Transactions -->
-                <a href="./transactions_management/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
-                    <div class="card-header">
-                        <div class="icon-wrapper">💸</div>
-                        <span class="arrow">→</span>
-                    </div>
-                    <h3>Transactions Management</h3>
-                    <p>交易管理</p>
-                </a>
+                    <!-- Transactions -->
+                    <a href="./transactions_management/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                        <div class="card-header">
+                            <div class="icon-wrapper">💸</div>
+                            <span class="arrow">→</span>
+                        </div>
+                        <h3>Transactions Management</h3>
+                        <p>交易管理</p>
+                    </a>
 
-                <!-- Categories -->
-                <a href="./categories_management/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
-                    <div class="card-header">
-                        <div class="icon-wrapper">🏷️</div>
-                        <span class="arrow">→</span>
-                    </div>
-                    <h3>Categories Management</h3>
-                    <p>分類管理</p>
-                </a>
+                    <!-- Categories -->
+                    <a href="./categories_management/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                        <div class="card-header">
+                            <div class="icon-wrapper">🏷️</div>
+                            <span class="arrow">→</span>
+                        </div>
+                        <h3>Categories Management</h3>
+                        <p>分類管理</p>
+                    </a>
 
-                <!-- User Roles -->
-                <a href="./user_roles_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
-                    <div class="card-header">
-                        <div class="icon-wrapper">👥</div>
-                        <span class="arrow">→</span>
-                    </div>
-                    <h3>User Roles</h3>
-                    <p>使用者角色</p>
-                </a>
+                    <!-- User Roles -->
+                    <a href="./user_roles_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                        <div class="card-header">
+                            <div class="icon-wrapper">👥</div>
+                            <span class="arrow">→</span>
+                        </div>
+                        <h3>User Roles</h3>
+                        <p>使用者角色</p>
+                    </a>
 
-                <!-- Settings -->
-                <a href="./settings_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
-                    <div class="card-header">
-                        <div class="icon-wrapper">⚙️</div>
-                        <span class="arrow">→</span>
-                    </div>
-                    <h3>Settings</h3>
-                    <p>設定</p>
-                </a>
+                    <!-- Settings -->
+                    <a href="./settings_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                        <div class="card-header">
+                            <div class="icon-wrapper">⚙️</div>
+                            <span class="arrow">→</span>
+                        </div>
+                        <h3>Settings</h3>
+                        <p>設定</p>
+                    </a>
 
-                <!-- Audit Logs -->
-                <a href="./audit_logs_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
-                    <div class="card-header">
-                        <div class="icon-wrapper">📜</div>
-                        <span class="arrow">→</span>
+                    <!-- Audit Logs -->
+                    <a href="./audit_logs_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                        <div class="card-header">
+                            <div class="icon-wrapper">📜</div>
+                            <span class="arrow">→</span>
+                        </div>
+                        <h3>Audit Logs</h3>
+                        <p>審計日誌</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 定價方案區塊 -->
+            <section class="pricing-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        💳 Pricing Plans <span>定價方案</span>
+                    </h2>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- 個人版 -->
+                    <div class="pricing-card">
+                        <div class="plan-name">Personal Edition</div>
+                        <div class="plan-desc">個人理財、自由工作者、單人記帳的最佳選擇。</div>
+                        
+                        <div class="price">HK$ 288 <span>/ 一次性買斷</span></div>
+                        <div class="price-note">無隱藏費用，終身使用</div>
+                        
+                        <ul class="plan-features">
+                            <li>Financial Dashboard (財務儀表板)</li>
+                            <li>Analytics Reports (數據分析報表)</li>
+                            <li>Transactions Management (交易管理)</li>
+                            <li>Categories Management (分類管理)</li>
+                            <li>Settings (設定)</li>
+                            <li>Excel Export (Excel 匯出)</li>
+                            <li class="disabled">User Roles (使用者角色)</li>
+                            <li class="disabled">Audit Logs (審計日誌)</li>
+                        </ul>
+                        
+                        <!-- 更新：WhatsApp 購買按鈕 -->
+                        <!-- 請將 85297587491 替換為您的真實 WhatsApp 號碼 -->
+                        <a href="https://wa.me/85297587491?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%20Finance-Tracker%20%E5%80%8B%E4%BA%BA%E7%89%88%20(HK%24288)" 
+                           class="btn-buy btn-outline" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                           💬 WhatsApp 聯絡購買
+                        </a>
                     </div>
-                    <h3>Audit Logs</h3>
-                    <p>審計日誌</p>
-                </a>
-            </div>
+
+                    <!-- 團隊/專業版 (推薦) -->
+                    <div class="pricing-card recommended">
+                        <div class="recommended-badge">RECOMMENDED</div>
+                        <div class="plan-name">Team / Pro Edition</div>
+                        <div class="plan-desc">適合夫妻/情侶共用、小型工作室與初創團隊。</div>
+                        
+                        <div class="price">HK$ 688 <span>/ 一次性買斷</span></div>
+                        <div class="price-note">包含最多 3 個使用者席位</div>
+                        
+                        <ul class="plan-features">
+                            <li><strong>包含個人版所有功能</strong></li>
+                            <li>👥 User Roles (使用者角色權限控管)</li>
+                            <li>📜 Audit Logs (完整操作審計日誌)</li>
+                            <li>合夥/家庭記帳最佳方案</li>
+                        </ul>
+                        
+                        <!-- 更新：WhatsApp 購買按鈕 -->
+                        <!-- 請將 85297587491 替換為您的真實 WhatsApp 號碼 -->
+                        <a href="https://wa.me/85297587491?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E8%B3%BC%E8%B2%B7%20Finance-Tracker%20%E5%9C%98%E9%9A%8A%E7%89%88%20(HK%24688)" 
+                           class="btn-buy btn-primary" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                           💬 WhatsApp 聯絡購買
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 付款方式提示 -->
+                <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">
+                    <p>支援付款方式：轉數快 (FPS) / 銀行轉帳</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">* 點擊按鈕後，系統將自動開啟 WhatsApp 並填入預設查詢訊息。</p>
+                </div>
+            </section>
         </main>
 
         <footer>
