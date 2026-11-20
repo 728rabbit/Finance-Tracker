@@ -8,10 +8,8 @@ is a sleek, modern financial intelligence web application designed to visualize 
 
 * [Financial Dashboard (財務儀表板)](./financial_dashboard/code.html)
 * [Analytics Reports (數據分析報表)](./analytics_reports_slate_edition/code.html)
-
 * [Transactions Management (交易管理)](./transactions_management/code.html)
 * [Categories Management (分類管理)](./categories_management/code.html)
-
 * [User Roles (使用者角色)](./user_roles_slate_edition/code.html)
 * [Settings (設定)](./settings_slate_edition/code.html)
 * [Audit Logs (審計日誌)](./audit_logs_slate_edition/code.html)
