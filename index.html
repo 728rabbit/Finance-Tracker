@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags (中英雙語整合) -->
+    <title>Finance-Tracker 財務追蹤工具 | Modern Financial Intelligence App</title>
+    <meta name="description" content="Finance-Tracker 是一款介面簡潔的現代化財務管理與分析網頁應用程式。掌握即時總資產、收支現金流趨勢及淨儲蓄率目標，內建交易紀錄與 Excel 匯出。A sleek, modern financial intelligence web app to visualize real-time liquidity, cash run-rate, and budget allocations.">
+    <meta name="keywords" content="財務追蹤, 財務管理, 資產分析, 現金流, 儲蓄率, 記帳軟體, Finance Tracker, Financial Dashboard, Financial Intelligence, Budget Allocation, Net Savings Rate">
+    <meta name="author" content="Finance-Tracker">
+    <link rel="canonical" href="https://your-domain.com/">
+
+    <!-- Open Graph / Facebook / LinkedIn (中英雙語) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="Finance-Tracker 財務追蹤工具 | Modern Financial Intelligence App">
+    <meta property="og:description" content="現代化財務管理與分析網頁應用程式。A sleek, modern financial intelligence web application designed to visualize real-time liquidity and budget allocations.">
+    <meta property="og:image" content="https://your-domain.com/preview.png">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:locale:alternate" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Finance-Tracker 財務追蹤工具 | Modern Financial Intelligence App">
+    <meta name="twitter:description" content="現代化財務管理與分析網頁應用程式。A sleek, modern financial intelligence web application designed to visualize real-time liquidity and budget allocations.">
+    <meta name="twitter:image" content="https://your-domain.com/preview.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD 結構化資料 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Finance-Tracker 財務追蹤工具",
+      "operatingSystem": "Web",
+      "applicationCategory": "FinanceApplication",
+      "inLanguage": ["zh-Hant", "en"],
+      "description": "一款介面簡潔的現代化財務管理與分析網頁應用程式。A sleek, modern financial intelligence web application designed to visualize real-time liquidity, cash run-rate, and budget allocations.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "TWD"
+      },
+      "featureList": [
+        "Interactive 6-month income vs. expense velocity charts (6個月收支趨勢對比圖表)",
+        "Category spending breakdowns (分類支出佔比)",
+        "Net savings rate tracking (淨儲蓄率追蹤)",
+        "Comprehensive transaction ledger (完整交易紀錄帳本)",
+        "Excel export (Excel 匯出)",
+        "Multi-language support EN/繁 (中英雙語切換)"
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-light: #818cf8;
+            --primary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --glow-color: rgba(79, 70, 229, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 頂部漸層光暈背景 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow-color) 0%, rgba(248, 250, 252, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-color);
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        h1 .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+        }
+
+        .description-group {
+            max-width: 850px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .description-zh {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .description-en {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Features Highlight */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .feature-tag {
+            background: #ffffff;
+            color: var(--text-main);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .feature-tag::before {
+            content: '✦';
+            color: var(--primary-color);
+            font-size: 0.7rem;
+        }
+
+        .feature-tag:hover {
+            border-color: var(--primary-light);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Modules Section */
+        .modules-section {
+            margin-top: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.75rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* 卡片頂部裝飾線 */
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: transparent;
+        }
+
+        .module-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(79, 70, 229, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .module-card:hover .icon-wrapper {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .arrow {
+            color: var(--primary-color);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .module-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-main);
+        }
+
+        .module-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.25rem; }
+            .subtitle { font-size: 1.1rem; }
+            .container { padding: 3rem 1rem; }
+            .grid { grid-template-columns: 1fr; }
+            .description-group { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="badge">v1.0 • Web Application</div>
+            <h1>Finance-Tracker <br><span class="gradient-text">財務追蹤工具</span></h1>
+            <p class="subtitle">Modern Financial Intelligence Web App</p>
+            
+            <div class="description-group">
+                <p class="description-zh">
+                    是一款介面簡潔的現代化財務管理與分析網頁應用程式。協助使用者掌握即時總資產、收支現金流趨勢（6 個月對比圖表）、各類別支出佔比及淨儲蓄率目標，並內建完整的交易紀錄帳本、Excel 匯出與中英雙語切換功能。
+                </p>
+                <p class="description-en">
+                    is a sleek, modern financial intelligence web application designed to visualize real-time liquidity, cash run-rate, and budget allocations. Built with a clean UI, it features interactive 6-month income vs. expense velocity charts, category spending breakdowns, net savings rate tracking, and a comprehensive transaction ledger with Excel export and multi-language support (EN/繁).
+                </p>
+            </div>
+
+            <div class="features">
+                <span class="feature-tag">即時資產視覺化</span>
+                <span class="feature-tag">6個月收支趨勢</span>
+                <span class="feature-tag">分類支出佔比</span>
+                <span class="feature-tag">淨儲蓄率追蹤</span>
+                <span class="feature-tag">Excel 匯出</span>
+                <span class="feature-tag">中英雙語切換</span>
+            </div>
+        </header>
+
+        <main class="modules-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    📂 Project Modules <span>項目模組</span>
+                </h2>
+            </div>
+            
+            <div class="grid">
+                <!-- Dashboard -->
+                <a href="./financial_dashboard/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                    <div class="card-header">
+                        <div class="icon-wrapper">📊</div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <h3>Financial Dashboard</h3>
+                    <p>財務儀表板</p>
+                </a>
+
+                <!-- Analytics -->
+                <a href="./analytics_reports_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                    <div class="card-header">
+                        <div class="icon-wrapper">📈</div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <h3>Analytics Reports</h3>
+                    <p>數據分析報表</p>
+                </a>
+
+                <!-- Transactions -->
+                <a href="./transactions_management/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                    <div class="card-header">
+                        <div class="icon-wrapper">💸</div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <h3>Transactions Management</h3>
+                    <p>交易管理</p>
+                </a>
+
+                <!-- Categories -->
+                <a href="./categories_management/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                    <div class="card-header">
+                        <div class="icon-wrapper">🏷️</div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <h3>Categories Management</h3>
+                    <p>分類管理</p>
+                </a>
+
+                <!-- User Roles -->
+                <a href="./user_roles_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                    <div class="card-header">
+                        <div class="icon-wrapper">👥</div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <h3>User Roles</h3>
+                    <p>使用者角色</p>
+                </a>
+
+                <!-- Settings -->
+                <a href="./settings_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                    <div class="card-header">
+                        <div class="icon-wrapper">⚙️</div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <h3>Settings</h3>
+                    <p>設定</p>
+                </a>
+
+                <!-- Audit Logs -->
+                <a href="./audit_logs_slate_edition/code.html" class="module-card" target="_blank" rel="noopener noreferrer">
+                    <div class="card-header">
+                        <div class="icon-wrapper">📜</div>
+                        <span class="arrow">→</span>
+                    </div>
+                    <h3>Audit Logs</h3>
+                    <p>審計日誌</p>
+                </a>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; <span id="year"></span> Finance-Tracker. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
